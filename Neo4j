@@ -1,0 +1,552 @@
+CREATE (InfluenzaA:Virus {virus_name:"Influenza A Virus"})
+CREATE (H1N1:Disease {disease_name:"H1N1",category:"Infectious"})
+CREATE (H1N2:Disease {disease_name:"H1N2",category:"Infectious"})
+CREATE (H3N2:Disease {disease_name:"H3N2",category:"Infectious"})
+CREATE (Diabetes:Disease {disease_name:"Diabetes",category:"Non-Infectious"})
+CREATE (HepatitisB:Disease {disease_name:"HepatitisB"})
+CREATE (AvianInfluenza:Disease {disease_name:"Avian Influenza"})
+CREATE (LouisHope:Researcher {researcher_name:"Louis Hope",user_id:"hope123"})
+
+CREATE
+(InfluenzaA)-[:EVOLVED_TO]->(H1N1),
+(InfluenzaA)-[:EVOLVED_TO]->(H1N2),
+(InfluenzaA)-[:EVOLVED_TO]->(H3N2)
+
+CREATE (Fever:Symptom {symptom_name:"Fever"})
+CREATE (Pruritus:Symptom {symptom_name:"Pruritus"})
+CREATE (Snoring:Symptom {symptom_name:"Snoring"})
+CREATE (Cough:Symptom {symptom_name:"Cough"})
+CREATE (SoreThroat:Symptom {symptom_name:"SoreThroat"})
+CREATE (Chills:Symptom {symptom_name:"Chills"})
+CREATE (Headache:Symptom {symptom_name:"Headache"})
+CREATE (Muscleache:Symptom {symptom_name:"Muscleache"})
+CREATE (Fatigue:Symptom {symptom_name:"Fatigue"})
+
+CREATE
+ (Fever)<-[:SYMPTOM]-(H1N1),
+ (Fever)<-[:SYMPTOM]-(H1N2),
+ (Fever)<-[:SYMPTOM]-(H3N2),
+ (Pruritus)<-[:SYMPTOM]-(H1N1),
+ (Snoring)<-[:SYMPTOM]-(H1N1),
+ (Cough)<-[:SYMPTOM]-(H1N1),
+ (Cough)<-[:SYMPTOM]-(H3N2),
+ (SoreThroat)<-[:SYMPTOM]-(H1N1),
+ (SoreThroat)<-[:SYMPTOM]-(H3N2),
+ (Muscleache)<-[:SYMPTOM]-(H1N2),
+ (Fatigue)<-[:SYMPTOM]-(H1N2),
+ (Headache)<-[:SYMPTOM]-(H3N2),
+ (Headache)<-[:SYMPTOM]-(H1N2),
+ (Chills)<-[:SYMPTOM]-(H1N2)
+
+CREATE (TreatmentH1N1One:Treatment {treatment_name:"Treatment 1"})
+CREATE (TreatmentH1N1Two:Treatment {treatment_name:"Treatment 2"})
+CREATE (TreatmentH1N2One:Treatment {treatment_name:"Treatment 1"})
+CREATE (TreatmentH1N2Two:Treatment {treatment_name:"Treatment 2"})
+CREATE (TreatmentH1N2Three:Treatment {treatment_name:"Treatment 3"})
+CREATE (TreatmentH3N2One:Treatment {treatment_name:"Treatment 1"})
+CREATE (TreatmentH3N2Two:Treatment {treatment_name:"Treatment 2"})
+CREATE (Tamiflu:Medication {medicine_name:"Tamiflu"})
+CREATE (Baloxavir:Medication {medicine_name:"Baloxavir"})
+CREATE (Rapivab:Medication {medicine_name:"Rapivab"})
+CREATE (Oseltamivir:Medication {medicine_name:"Oseltamivir"})
+CREATE (Peramivir:Medication {medicine_name:"Peramivir"})
+CREATE (Paracetamol:Medication {medicine_name:"Paracetamol"})
+CREATE (Loromia:Medication {medicine_name:"Loromia"})
+CREATE (Volatstil:Medication {medicine_name:"Volatstil"})
+CREATE (Relenza:Medication {medicine_name:"Relenza"}) 
+CREATE (Zanamivir:Medication {medicine_name:"Zanamivir"})
+CREATE (Limiflu:Medication {medicine_name:"Limiflu"}) 
+
+
+CREATE
+ (H1N1)-[:TREATMENT]->(TreatmentH1N1One),
+ (H1N1)-[:TREATMENT]->(TreatmentH1N1Two),
+ (H1N2)-[:TREATMENT]->(TreatmentH1N2One),
+ (H1N2)-[:TREATMENT]->(TreatmentH1N2Two),
+ (H1N2)-[:TREATMENT]->(TreatmentH1N2Three),
+ (H3N2)-[:TREATMENT]->(TreatmentH3N2One),
+ (H3N2)-[:TREATMENT]->(TreatmentH3N2Two)
+ 
+ 
+
+CREATE
+ (TreatmentH1N1One)-[:MEDICINE {dosage:"30mg"}]->(Tamiflu),
+ (TreatmentH1N1One)-[:MEDICINE {dosage:"40mg"}]->(Baloxavir),
+ (TreatmentH1N1One)-[:MEDICINE {dosage:"50mg"}]->(Paracetamol),
+ (TreatmentH1N1Two)-[:MEDICINE {dosage:"60mg"}]->(Loromia),
+ (TreatmentH1N1Two)-[:MEDICINE {dosage:"70mg"}]->(Volatstil),
+ (TreatmentH1N1Two)-[:MEDICINE {dosage:"50mg"}]->(Relenza),
+ (Tamiflu)-[:ALTERNATIVE {dosage:"50mg"}]->(Relenza),
+ (Relenza)-[:ALTERNATIVE {dosage:"30mg"}]->(Tamiflu),
+ (TreatmentH1N2One)-[:MEDICINE {dosage:"70mg"}]->(Tamiflu),
+ (TreatmentH1N2One)-[:MEDICINE {dosage:"50mg"}]->(Oseltamivir),
+ (TreatmentH1N2Two)-[:MEDICINE {dosage:"5mg"}]->(Zanamivir),
+ (TreatmentH1N2Two)-[:MEDICINE {dosage:"200mg"}]->(Peramivir),
+ (TreatmentH1N2Three)-[:MEDICINE {dosage:"200mg"}]->(Peramivir),
+ (Peramivir)-[:ALTERNATIVE {dosage:"50mg"}]->(Oseltamivir),
+ (Oseltamivir)-[:ALTERNATIVE {dosage:"200mg"}]->(Peramivir),
+ (TreatmentH3N2One)-[:MEDICINE {dosage:"100mg"}]->(Tamiflu),
+ (TreatmentH3N2One)-[:MEDICINE {dosage:"50mg"}]->(Rapivab),
+ (TreatmentH3N2Two)-[:MEDICINE {dosage:"40mg"}]->(Baloxavir),
+ (TreatmentH3N2Two)-[:MEDICINE {dosage:"70mg"}]->(Limiflu),
+ (Limiflu)-[:ALTERNATIVE {dosage:"50mg"}]->(Rapivab),
+ (Rapivab)-[:ALTERNATIVE {dosage:"70mg"}]->(Limiflu)
+ 
+ 
+
+CREATE 
+ (H1N1)-[:RELATED_TO]->(H1N2),
+ (H1N1)-[:RELATED_TO]->(AvianInfluenza),
+ (H1N2)-[:RELATED_TO]->(H1N1),
+ (H1N2)-[:RELATED_TO]->(AvianInfluenza),
+ (H3N2)-[:RELATED_TO]->(H1N1),
+ (H3N2)-[:RELATED_TO]->(H1N2)
+
+CREATE (Heidelberg:Location {location_name:"Heidelberg"})
+CREATE (Stuttgart:Location {location_name:"Stuttgart"})
+CREATE (Frankfurt:Location {location_name:"Frankfurt"})
+CREATE (Munich:Location {location_name:"Munich"})
+CREATE (Hamburg:Location {location_name:"Hamburg"})
+CREATE (Berlin:Location {location_name:"Berlin"})
+
+CREATE 
+ (Heidelberg)<-[:FOUND_IN]-(H1N1),
+ (Stuttgart)<-[:FOUND_IN]-(H1N1),
+ (Frankfurt)<-[:FOUND_IN]-(H1N1),
+ (Heidelberg)<-[:FOUND_IN]-(H1N2),
+ (Stuttgart)<-[:FOUND_IN]-(H1N2),
+ (Stuttgart)<-[:FOUND_IN]-(H3N2),
+ (Frankfurt)<-[:FOUND_IN]-(H3N2)
+
+CREATE (FredrickYoung:Researcher{researcher_name:"Fredrick Young",user_id:"young123"})
+CREATE (JosephWalk:Researcher{researcher_name:"Joseph Walk",user_id:"walk123"})
+CREATE (HansWerner:Researcher{researcher_name:"Hans Werner",user_id:"werner123"})
+
+CREATE 
+(FredrickYoung)<-[:WORKED_BY{researcher_status:"Active"}]-(H1N1),
+(JosephWalk)<-[:WORKED_BY{researcher_status:"Inactive"}]-(H1N1),
+(HansWerner)<-[:WORKED_BY{researcher_status:"Active"}]-(H1N1),
+(FredrickYoung)<-[:WORKED_BY{researcher_status:"Active"}]-(H1N2),
+(JosephWalk)<-[:WORKED_BY{researcher_status:"Active"}]-(H1N2),
+(HansWerner)<-[:WORKED_BY{researcher_status:"Inactive"}]-(H1N2),
+(FredrickYoung)<-[:WORKED_BY{researcher_status:"Active"}]-(H3N2),
+(JosephWalk)<-[:WORKED_BY{researcher_status:"Active"}]-(H3N2),
+(HansWerner)<-[:WORKED_BY{researcher_status:"Active"}]-(H3N2)
+
+
+CREATE (HIV:Virus {virus_name:"HIV"})
+CREATE (HIVOne:Virus {virus_name:"HIV 1"})
+CREATE (HIVTwo:Virus {virus_name:"HIV 2"})
+
+CREATE (AIDS:Disease {disease_name:"AIDS",category:"Infectious"})
+CREATE (Tuberculosis:Disease {disease_name:"Tuberculosis",category:"Infectious"})
+CREATE (Histoplasmosis:Disease {disease_name:"Histoplasmosis"})
+CREATE (Lymphomas:Disease {disease_name:"Lymphomas"})
+
+CREATE 
+ (HIV)-[:EVOLVED_TO]->(HIVOne),
+ (HIV)-[:EVOLVED_TO]->(HIVTwo),
+ (HIVOne)-[:RELATED_TO]->(HIVTwo),
+ (HIVOne)-[:CAUSES]->(AIDS),
+ (HIVTwo)-[:CAUSES]->(AIDS)
+
+CREATE (SwollenLymph:Symptom {symptom_name:"Swollen Lymph"})
+CREATE (ThroatInflammation:Symptom {symptom_name:"Throat Inflammation"})
+CREATE (Rash:Symptom {symptom_name:"Rash"})
+CREATE (Malaise:Symptom {symptom_name:"Malaise"})
+CREATE (MouthSore:Symptom {symptom_name:"Mouth Sore"})
+
+CREATE 
+ (SwollenLymph)<-[:SYMPTOM]-(AIDS),
+ (ThroatInflammation)<-[:SYMPTOM]-(AIDS),
+ (Rash)<-[:SYMPTOM]-(AIDS),
+ (Malaise)<-[:SYMPTOM]-(AIDS),
+ (MouthSore)<-[:SYMPTOM]-(AIDS),
+ (Fever)<-[:SYMPTOM]-(AIDS),
+ (Muscleache)<-[:SYMPTOM]-(AIDS)
+
+
+CREATE (TreatmentAIDSOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (TreatmentAIDSTwo:Treatment {treatment_name:"Treatment 2"})
+
+CREATE (Tenofovir:Medication {medicine_name:"Tenofovir"})
+CREATE (Efavirenz:Medication {medicine_name:"Efavirenz"})
+CREATE (Lamivudine:Medication {medicine_name:"Lamivudine"})
+CREATE (Emtricitabine:Medication {medicine_name:"Emtricitabine"})
+CREATE (Abacavir:Medication {medicine_name:"Abacavir"})
+
+CREATE 
+ (AIDS)-[:TREATMENT]->(TreatmentAIDSOne),
+ (AIDS)-[:TREATMENT]->(TreatmentAIDSTwo)
+
+ CREATE
+ (TreatmentAIDSOne)-[:MEDICINE {dosage:"150mg"}]->(Tenofovir),
+ (TreatmentAIDSOne)-[:MEDICINE {dosage:"200mg"}]->(Efavirenz),
+ (TreatmentAIDSOne)-[:MEDICINE {dosage:"150mg"}]->(Lamivudine),
+ (Lamivudine)-[:ALTERNATIVE {dosage:"200mg"}]->(Emtricitabine),
+ (Emtricitabine)-[:ALTERNATIVE {dosage:"150mg"}]->(Lamivudine),
+ (TreatmentAIDSTwo)-[:MEDICINE {dosage:"200mg"}]->(Emtricitabine),
+ (TreatmentAIDSTwo)-[:MEDICINE {dosage:"300mg"}]->(Abacavir)
+ 
+CREATE 
+ (Tuberculosis)-[:RELATED_TO]->(AIDS),
+ (Histoplasmosis)-[:RELATED_TO]->(AIDS),
+ (Lymphomas)-[:RELATED_TO]->(AIDS)
+ 
+CREATE 
+ (Frankfurt)<-[:FOUND_IN]-(AIDS),
+ (Munich)<-[:FOUND_IN]-(AIDS),
+ (Hamburg)<-[:FOUND_IN]-(AIDS)
+
+CREATE (DavidVictor:Researcher{researcher_name:"David Victor",user_id:"victor123"})
+CREATE (JudithLucas:Researcher{researcher_name:"Judith Lucas",user_id:"lucas123"})
+CREATE (BerthaWilhelm:Researcher{researcher_name:"Bertha Wilhelm",user_id:"bertha555"})
+
+CREATE
+ (JudithLucas)<-[:WORKED_BY{researcher_status:"Active"}]-(AIDS),
+ (DavidVictor)<-[:WORKED_BY{researcher_status:" Active"}]-(AIDS),
+ (BerthaWilhelm)<-[:WORKED_BY{researcher_status:"Active"}]-(AIDS)
+
+
+CREATE (HepatitisA:Disease {disease_name:"Hepatitis A",category:"Infectious"})
+CREATE (HepatitisD:Disease {disease_name:"Hepatitis D"})
+CREATE (Typhoid:Disease {disease_name:"Typhoid"})	
+CREATE (TonyNewman:Researcher {researcher_name:"Tony Newman"})
+CREATE (JordanLuke:Researcher {researcher_name:"Jordan Luke"})
+ 	
+CREATE (LossOfAppetite:Symptom {symptom_name:"Loss of appetite"})
+CREATE (WeightLoss:Symptom {symptom_name:"Weight Loss"})
+CREATE (Stomachache:Symptom {symptom_name:"Stomach Ache"})
+
+CREATE
+ (LossOfAppetite)-[:SYMPTOM]->(HepatitisA),
+ (WeightLoss)-[:SYMPTOM]->(HepatitisA),
+ (Stomachache)-[:SYMPTOM]->(HepatitisA),
+ (Fever)-[:SYMPTOM]->(HepatitisA)
+ 
+CREATE
+ (TonyNewman)<-[:WORKED_BY{reseacher_status:"Active"}]-(HepatitisA),
+ (JordanLuke)<-[:WORKED_BY{reseacher_status:"Active"}]-(HepatitisA)
+ 
+CREATE (TreatmentHepatitisAOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (HealthyDiet:Method {method_name:"Healthy Diet"})
+CREATE (Hydration:Method {method_name:"Hydration"})
+
+CREATE 
+ (TreatmentHepatitisAOne)<-[:TREATMENT]-(HepatitisA),
+ (TreatmentHepatitisAOne)-[:METHOD]->(HealthyDiet),
+ (TreatmentHepatitisAOne)-[:METHOD]->(Hydration)
+
+CREATE 
+ (HepatitisA)-[:RELATED_TO]->(HepatitisD),
+ (HepatitisA)-[:RELATED_TO]->(HepatitisB),
+ (HepatitisA)-[:RELATED_TO]->(Typhoid)
+ 
+CREATE
+ (HepatitisA)-[:FOUND_IN]->(Heidelberg),
+ (HepatitisA)-[:FOUND_IN]->(Berlin),
+ (HepatitisA)-[:FOUND_IN]->(Frankfurt)
+ 
+ 
+CREATE (Parkinsons:Disease {disease_name:"Parkinsons",Category:"Non-infectous"})
+
+
+CREATE (Tremors:Symptom {symptom_name:"Tremors"})
+CREATE (RigidMuscles:Symptom {symptom_name:"RigidMuscles"})
+CREATE (SpeechChanges:Symptom {symptom_name:"SpeechChanges"})
+CREATE (SupranuclearPalsy:Disease {disease_name:"Supranuclear Palsy"})
+CREATE (MultipleAtrophy:Disease {disease_name:"Multiple Atrophy"})
+
+CREATE
+ (Tremors)<-[:SYMPTOM]-(Parkinsons),
+ (RigidMuscles)<-[:SYMPTOM]-(Parkinsons),
+ (SpeechChanges)<-[:SYMPTOM]-(Parkinsons)
+ 
+CREATE (TreatmentParkinsonsOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (CarbidopaLevodopa:Medication {medicine_name:"CarbidopaLevodopa"})
+CREATE (Dopamine:Medication {medicine_name:"Dopamine"})
+
+CREATE (TreatmentParkinsonsOne)<-[:TREATMENT]-(Parkinsons)
+
+CREATE
+(TreatmentParkinsonsOne)-[:MEDICINE {dosage:"100mg"}] ->(CarbidopaLevodopa),
+(TreatmentParkinsonsOne)-[:MEDICINE {dosage:"100mg"}] ->(Dopamine)
+
+CREATE
+(Parkinsons)-[:RELATED_TO]->(MultipleAtrophy),
+(Parkinsons)-[:RELATED_TO]->(SupranuclearPalsy)
+
+CREATE
+ (Heidelberg)<-[:FOUND_IN]-(Parkinsons),
+ (Stuttgart)<-[:FOUND_IN]-(Parkinsons),
+ (Hamburg)<-[:FOUND_IN]-(Parkinsons),
+ (Munich)<-[:FOUND_IN]-(Parkinsons)
+
+CREATE (KellyAnn:Researcher{researcher_name:"Kelly Ann",user_id:"ann213"})
+CREATE (BrianUdinese:Researcher{researcher_name:"Brian Udinese",user_id:"brian516"})
+
+CREATE 
+ (KellyAnn)<-[:WORKED_BY {researcher_status:"Active"}]-(Parkinsons),
+ (BrianUdinese)<-[:WORKED_BY {researcher_status:"Active"}]-(Parkinsons)
+ 
+ 
+CREATE (Obesity:Disease {disease_name:"Obesity",category:"Non-infectous"})
+CREATE (HeartDisease:Disease {disease_name:"Heart disease"})
+
+CREATE (Breathlessness:Symptom {symptom_name:"Breathlessness"})
+CREATE (IncreasedSweating:Symptom {symptom_name:"Increased Sweating"})
+
+CREATE
+(Breathlessness)<-[:SYMPTOM]-(Obesity),
+(Snoring)<-[:SYMPTOM]-(Obesity),
+(IncreasedSweating)<-[:SYMPTOM]-(Obesity),
+(Fatigue)<-[:SYMPTOM]-(Obesity)
+
+CREATE (TreatmentObesityOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (Xenical:Medication {medicine_name:"Xenical"})
+CREATE (Liraglutide:Medication {medicine_name:"Liraglutide"})
+
+CREATE
+(TreatmentObesityOne)<-[:TREATMENT]-(Obesity)
+
+CREATE
+(TreatmentObesityOne)-[:MEDICINE {dosage:"120mg"}] ->(Xenical),
+(TreatmentObesityOne)-[:MEDICINE {dosage:"18mg"}] ->(Liraglutide)
+
+CREATE
+(Obesity)-[:RELATED_TO]->(Diabetes),
+(Obesity)-[:RELATED_TO]->(HeartDisease)
+
+CREATE
+(Heidelberg)<-[:FOUND_IN]-(Obesity),
+(Stuttgart)<-[:FOUND_IN]-(Obesity),
+(Frankfurt)<-[:FOUND_IN]-(Obesity)
+
+CREATE 
+ (LouisHope)<-[:WORKED_BY{researcher_status:"Active"}]-(Obesity)
+
+
+CREATE (Leukemia:Disease {disease_name:"Leukemia",category:"Non-Infectious"})
+CREATE (Diarrhea:Disease {disease_name:"Diarrhea"})
+CREATE (Pneumonia:Disease {disease_name:"Pneumonia"})
+
+CREATE (Bruising:Symptom {symptom_name:"Bruising"})
+CREATE (PaleSkin:Symptom {symptom_name:"Pale Skin"})
+CREATE (EnlargedLiver:Symptom {symptom_name:"Enlarged Liver"})
+
+
+CREATE
+ (Fever)<-[:SYMPTOM]-(Leukemia),
+ (PaleSkin)<-[:SYMPTOM]-(Leukemia),
+ (Bruising)<-[:SYMPTOM]-(Leukemia),
+ (EnlargedLiver)<-[:SYMPTOM]-(Leukemia),
+ (WeightLoss)<-[:SYMPTOM]-(Leukemia)
+
+CREATE (TreatmentLeukemiaOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (Chemotherapy:Medication {medicine_name:"Chemotherapy"})
+
+CREATE
+ (Leukemia)-[:TREATMENT]->(TreatmentLeukemiaOne)
+ 
+CREATE 
+ (TreatmentLeukemiaOne)-[:MEDICINE]->(Chemotherapy)
+
+CREATE 
+ (Leukemia)-[:RELATED_TO]->(Diarrhea),
+ (Leukemia)-[:RELATED_TO]->(Pneumonia)
+ 
+CREATE
+ (Heidelberg)<-[:FOUND_IN]-(Leukemia),
+ (Berlin)<-[:FOUND_IN]-(Leukemia),
+ (Frankfurt)<-[:FOUND_IN]-(Leukemia),
+ (Stuttgart)<-[:FOUND_IN]-(Leukemia)
+
+CREATE (GabrielVancou:Researcher{researcher_name:"Gabriel Vancou",user_id:"gabriel123"})
+CREATE (CliffordNuru:Researcher{researcher_name:"Clifford Nuru",user_id:"clifford123"})
+CREATE (RichardLamp:Researcher{researcher_name:"Richard Lamp",user_id:"lamp123"})
+
+CREATE 
+ (CliffordNuru)<-[:WORKED_BY{researcher_status:"Active"}]-(Leukemia),
+ (RichardLamp)<-[:WORKED_BY{researcher_status:"Active"}]-(Leukemia),
+ (GabrielVancou)<-[:WORKED_BY{researcher_status:"Inactive"}]-(Leukemia)
+
+ 
+CREATE (Measles:Disease {disease_name:"Measles",category:"Infectious"})
+CREATE (Rubella:Disease {disease_name:"Rubella"})
+CREATE (Tetanus:Disease {disease_name:"Tetanus"})
+
+CREATE (Conjunctivitis:Symptom {symptom_name:"Conjunctivitis"})
+
+CREATE
+ (Fever)<-[:SYMPTOM]-(Measles),
+ (Cough)<-[:SYMPTOM]-(Measles),
+ (Conjunctivitis)<-[:SYMPTOM]-(Measles),
+ (Fatigue)<-[:SYMPTOM]-(Measles)
+
+CREATE (TreatmentMeaslesOne:Treatment {treatment_name:"Treatment 1"})
+
+CREATE (Ibuprofen:Medication {medicine_name:"Ibuprofen"})
+
+CREATE
+ (Measles)-[:TREATMENT]->(TreatmentMeaslesOne),
+ (TreatmentMeaslesOne)-[:MEDICINE {dosage:"50mg"}]->(Ibuprofen)
+ 
+ 
+CREATE 
+ (Measles)-[:RELATED_TO]->(Rubella),
+ (Measles)-[:RELATED_TO]->(Tetanus)
+
+CREATE
+ (Heidelberg)<-[:FOUND_IN]-(Measles),
+ (Hamburg)<-[:FOUND_IN]-(Measles),
+ (Frankfurt)<-[:FOUND_IN]-(Measles),
+ (Stuttgart)<-[:FOUND_IN]-(Measles)
+ 
+ 
+CREATE (TerryKool:Researcher{researcher_name:"Terry Kool",user_id:"kool255"})
+CREATE (TellmanBorris:Researcher{researcher_name:"Tellman Borris",user_id:"borris123"})
+
+CREATE
+(Terrykool)<-[:WORKED_BY{researcher_status:"Active"}]-(Measles),
+(TellmanBorris)<-[:WORKED_BY{researcher_status:"Inactive"}]-(Measles),
+(BerthaWilhelm)<-[:WORKED_BY{researcher_status:"Active"}]-(Measles)
+
+
+CREATE (Bronchitis:Disease {disease_name:"Bronchitis"})
+CREATE (Emphysema:Disease {disease_name:"Emphysema"})
+
+CREATE (ChestPain:Symptom {symptom_name:"Chest Pain"})
+CREATE (NightSweat:Symptom {symptom_name:"Night Sweat"})
+
+CREATE
+ (Fever)<-[:SYMPTOM]-(Tuberculosis),
+ (Cough)<-[:SYMPTOM]-(Tuberculosis),
+ (WeightLoss)<-[:SYMPTOM]-(Tuberculosis),
+ (Fatigue)<-[:SYMPTOM]-(Tuberculosis),
+ (ChestPain)<-[:SYMPTOM]-(Tuberculosis),
+ (NightSweat)<-[:SYMPTOM]-(Tuberculosis),
+ (LossOfAppetite)<-[:SYMPTOM]-(Tuberculosis)
+ 
+CREATE (TreatmentTuberculosisOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (TreatmentTuberculosisTwo:Treatment {treatment_name:"Treatment 2"})
+
+CREATE (Isoniazid:Medication {medicine_name:"Isoniazid"})
+CREATE (Rifampicin:Medication {medicine_name:"Rifampicin"})
+CREATE (Pyrazinamide:Medication {medicine_name:"Pyrazinamide"})
+CREATE (Ethambutol:Medication {medicine_name:"Ethambutol"})
+
+CREATE
+ (Tuberculosis)-[:TREATMENT]->(TreatmentTuberculosisOne),
+ (Tuberculosis)-[:TREATMENT]->(TreatmentTuberculosisTwo)
+ 
+CREATE
+ (TreatmentTuberculosisOne)-[:MEDICINE {dosage:"300mg"}]->(Isoniazid),
+ (TreatmentTuberculosisOne)-[:MEDICINE {dosage:"600mg"}]->(Rifampicin),
+ (TreatmentTuberculosisTwo)-[:MEDICINE {dosage:"25mg"}]->(Pyrazinamide),
+ (TreatmentTuberculosisTwo)-[:MEDICINE {dosage:"15mg"}]->(Ethambutol)
+ 
+CREATE 
+ (Tuberculosis)-[:RELATED_TO]->(Bronchitis),
+ (Tuberculosis)-[:RELATED_TO]->(Emphysema) 
+
+CREATE
+ (Heidelberg)<-[:FOUND_IN]-(Tuberculosis),
+ (Frankfurt)<-[:FOUND_IN]-(Tuberculosis),
+ (Stuttgart)<-[:FOUND_IN]-(Tuberculosis)
+ 
+CREATE (OscarLupe:Researcher{researcher_name:"Oscar Lupe",user_id:"oscar786"})
+CREATE (LarryHope:Researcher{researcher_name:"Larry Hope",user_id:"larry523"})
+
+CREATE
+(OscarLupe)<-[:WORKED_BY{researcher_status:"Active"}]-(Tuberculosis),
+(LarryHope)<-[:WORKED_BY{researcher_status:"Active"}]-(Tuberculosis),
+(BerthaWilhelm)<-[:WORKED_BY{researcher_status:"Inactive"}]-(Tuberculosis)
+
+
+
+
+CREATE (CoeliacDisease:Disease {disease_name:"Coeliac Disease"})
+CREATE (ThyroidDisease:Disease {disease_name:"Thyroid Disease"})
+
+CREATE (IncreasedThirst:Symptom {symptom_name:"Increased Thirst"})
+CREATE (Urination:Symptom {symptom_name:"Frequent Urination"})
+
+CREATE
+ (IncreasedThirst)<-[:SYMPTOM]-(Diabetes),
+ (Urination)<-[:SYMPTOM]-(Diabetes),
+ (WeightLoss)<-[:SYMPTOM]-(Diabetes),
+ (Fatigue)<-[:SYMPTOM]-(Diabetes)
+ 
+CREATE (TreatmentDiabetesOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (Insulin:Medication {medicine_name:"Insulin"})
+CREATE (Metformin:Medication {medicine_name:"Metformin"})
+
+CREATE
+ (Diabetes)-[:TREATMENT]->(TreatmentDiabetesOne),
+ (TreatmentDiabetesOne)-[:MEDICINE {dosage:"100mg"}]->(Insulin),
+ (TreatmentDiabetesOne)-[:MEDICINE {dosage:"500mg"}]->(Metformin)
+
+CREATE 
+ (Diabetes)-[:RELATED_TO]->(HepatitisB),
+ (Diabetes)-[:RELATED_TO]->(CoeliacDisease),
+ (Diabetes)-[:RELATED_TO]->(ThyroidDisease)
+ 
+CREATE
+ (Frankfurt)<-[:FOUND_IN]-(Diabetes),
+ (Hamburg)<-[:FOUND_IN]-(Diabetes),
+ (Berlin)<-[:FOUND_IN]-(Diabetes)
+
+CREATE (FisherLot:Researcher{researcher_name:"Fisher Lot",user_id:"lot555"})
+CREATE (KregLukeman:Researcher{researcher_name:"Kreg Lukeman",user_id:"kreg222"})
+
+CREATE 
+ (FisherLot)<-[:WORKED_BY{researcher_status:"Active"}]-(Diabetes),
+ (KregLukeman)<-[:WORKED_BY{researcher_status:"Active"}]-(Diabetes),
+ (GabrielVancou)<-[:WORKED_BY{researcher_status:"Active"}]-(Diabetes),
+ (LouisHope)<-[:WORKED_BY{researcher_status:"Inactive"}]-(Diabetes)
+ 
+CREATE (Alzheimers:Disease {disease_name:"Alzheimer's",category:"Non-Infectious"})
+CREATE (MultipleSystemAtrophy:Disease {disease_name:"Multiple System Atrophy"})
+
+CREATE (MemoryLoss:Symptom {symptom_name:"Memory Loss"})
+CREATE (Anxiety:Symptom {symptom_name:"Anxiety"})
+CREATE (Hallucinations:Symptom {symptom_name:"Hallucinations"})
+CREATE (Confusion:Symptom {symptom_name:"Confusion"})
+
+CREATE
+ (MemoryLoss)<-[:SYMPTOM]-(Alzheimers),
+ (Anxiety)<-[:SYMPTOM]-(Alzheimers),
+ (Hallucinations)<-[:SYMPTOM]-(Alzheimers),
+ (Confusion)<-[:SYMPTOM]-(Alzheimers)
+
+CREATE (TreatmentAlzheimersOne:Treatment {treatment_name:"Treatment 1"})
+CREATE (Carbidopalevodopa:Medication {medicine_name:"Carbidopalevodopa"})
+
+CREATE
+ (Alzheimers)-[:TREATMENT]->(TreatmentAlzheimersOne),
+ (TreatmentAlzheimersOne)-[:MEDICINE {dosage:"100mg"}]->(Carbidopalevodopa),
+ (TreatmentAlzheimersOne)-[:MEDICINE {dosage:"100mg"}]->(Dopamine)
+
+CREATE 
+ (Alzheimers)-[:RELATED_TO]->(MultipleSystemAtrophy),
+ (Alzheimers)-[:RELATED_TO]->(SupranuclearPalsy)
+ 
+
+
+CREATE (OtemOtien:Researcher{researcher_name:"Otem Otien",user_id:"otem777"})
+CREATE (SamuelGreg:Researcher{researcher_name:"Samuel Greg",user_id:"greg123"})
+
+CREATE
+(OtemOtien)<-[:WORKED_BY{researcher_status:"Active"}]-(Alzheimers),
+(SamuelGreg)<-[:WORKED_BY{researcher_status:" Active"}]-(Alzheimers)
+
+CREATE 
+ (Heidelberg)<-[:FOUND_IN]-(Alzheimers),
+ (Frankfurt)<-[:FOUND_IN]-(Alzheimers),
+ (Stuttgart)<-[:FOUND_IN]-(Alzheimers),
+ (Munich)<-[:FOUND_IN]-(Alzheimers);
+ 
+
+ 
+
+
